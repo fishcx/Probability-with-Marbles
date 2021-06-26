@@ -1,0 +1,145 @@
+<script>
+	$(document).ready(function() {
+     
+	 var marbles = [];
+	 var marCount = {blue:0, red:0, yellow:0, green:0, orange:0, purple:0};
+     var color = {blue:'0Bz7YeguouwdxNDVKQ3MyS0V1V1U', red:'0Bz7YeguouwdxWUo2UWtWQ1AyQjg', yellow:'0Bz7YeguouwdxRkRFd1lKMzM5Vk0', green:'0Bz7YeguouwdxeTFKZnl0MDFTYTg', orange:'0Bz7YeguouwdxNkxmUkZ6RktFelk', purple:'0Bz7YeguouwdxcHlkbk1LU0JZeUU'};
+    $('#show-hide').click(function(){
+    $('#setup').toggle();
+  });
+
+  $('#randomMarble').click(function(){
+	var tempC = selectRandom();
+    
+    if(tempC){
+          $("#generatedOutput").html(timeStamp()+" Color Selected: <img src='https://drive.google.com/uc?export=download&id="+color[tempC]+"' height='25'> "+tempC);
+      }
+      else{
+          $("#generatedOutput").html("Please select at least one marble color.");
+      }
+            
+  });
+    $("#run").click(function(){
+        runSim(0,0,0,0,0,0);
+    });
+    
+	$("#addTo").click(function(){
+		runSim(marCount["blue"],marCount["red"],marCount["yellow"],marCount["green"],marCount["orange"],marCount["purple"]);
+	});
+	
+	function runSim(blue, red, yellow, green, orange, purple){
+		if(selectRandom()){
+        var b = blue;
+        var r = red;
+        var y = yellow;
+        var g = green;
+        var o = orange;
+        var p = purple;
+        for(j = 0; j < $('#numTimes').val(); j++){
+                var tempC = selectRandom();
+
+            switch(tempC) {
+                    case "blue": ++b; break;
+                    case "red": ++r; break;
+					case "yellow": ++y; break;
+					case "green": ++g; break;
+					case "orange": ++o; break;
+					case "purple": ++p; break;
+      
+                }
+            }
+			// Update the count
+			marCount["blue"]=b;
+			marCount["red"]=r; 
+			marCount["yellow"]=y;
+			marCount["green"]=g;
+			marCount["orange"]=o;
+			marCount["purple"]=p;
+			
+            if($('#numTimes').val()>0){
+				var total = b+r+y+g+o+p;
+				var output = "<b>Results [Total = "+total+"]:</b> ";
+				if(b > 0){ output += "<img src='https://drive.google.com/uc?export=download&id="+color['blue']+"' height='25'> Blue: "+b+ " ("+getPercent(b,total)+"%)"; }
+				if(r > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['red']+"' height='25'> Red: "+r+ " ("+getPercent(r,total)+"%)"; }
+				if(y > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['yellow']+"' height='25'> Yellow: "+y+ " ("+getPercent(y,total)+"%)"; }
+				if(g > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['green']+"' height='25'> Green: "+g+ " ("+getPercent(g,total)+"%)"; }
+				if(o > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['orange']+"' height='25'> Orange: "+o+ " ("+getPercent(o,total)+"%)"; }
+				if(p > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['purple']+"' height='25'> Purple: "+p+ " ("+getPercent(p,total)+"%)"; }
+                $("#generatedOutput").html(output);
+      }
+      else{
+          $("#generatedOutput").html("Please input a value greater than 0.");
+      }
+        }
+        else{
+            $("#generatedOutput").html("Please select at least one marble color.");
+        }
+	}
+	
+    function getPercent(part, whole){
+		return Math.round(part/whole*100);
+	}
+	
+	function selectRandom(){
+        marbles = [];
+        for (i = 0; i < $('#blue-select').val(); i++) { 
+            marbles.push("blue");
+        }
+        for (i = 0; i < $('#red-select').val(); i++) { 
+            marbles.push("red");
+        }
+        for (i = 0; i < $('#yellow-select').val(); i++) { 
+            marbles.push("yellow");
+        }
+      for (i = 0; i < $('#purple-select').val(); i++) { 
+            marbles.push("purple");
+        }
+      for (i = 0; i < $('#green-select').val(); i++) { 
+            marbles.push("green");
+        }
+      for (i = 0; i < $('#orange-select').val(); i++) { 
+            marbles.push("orange");
+        }
+      var index = Math.floor(Math.random() * (marbles.length));
+     
+        return marbles[index];
+        
+    }
+  
+    /**
+ * Return a timestamp with the format "m/d/yy h:MM:ss TT"
+ * @type {Date}
+ */
+ 
+function timeStamp() {
+// Create a date object with the current time
+  var now = new Date();
+ 
+// Create an array with the current month, day and time
+  var date = [ now.getMonth() + 1, now.getDate(), now.getFullYear() ];
+ 
+// Create an array with the current hour, minute and second
+  var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+ 
+// Determine AM or PM suffix based on the hour
+  var suffix = ( time[0] < 12 ) ? "AM" : "PM";
+ 
+// Convert hour from military time
+  time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+ 
+// If hour is 0, set it to 12
+  time[0] = time[0] || 12;
+ 
+// If seconds and minutes are less than 10, add a zero
+  for ( var i = 1; i < 3; i++ ) {
+    if ( time[i] < 10 ) {
+      time[i] = "0" + time[i];
+    }
+  }
+ 
+// Return the formatted string
+  return date.join("/") + " " + time.join(":") + " " + suffix;
+}
+});
+
+	</script>

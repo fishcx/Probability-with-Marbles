@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="author" content="Tom Fisher FishMath.com">
+    <title>Probability Simulation with Marbles</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  </head>
+
+  <body>
+	<form id="PythagTriples">
+		<h2>Probability Simulator with Replacement</h2><br>
+		<div id="setup">
+        <p>Select the number of marbles of each color</p>
+		<table>
+			<tr>
+				<td>
+					<img src="https://drive.google.com/uc?export=download&id=0Bz7YeguouwdxNDVKQ3MyS0V1V1U" height="25"> blue: <select name="blue" id="blue-select" class="marbles">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>                        
+                    </select>
+                </td>
+                <td>
+					<img src="https://drive.google.com/uc?export=download&id=0Bz7YeguouwdxeTFKZnl0MDFTYTg" height="25"> green: <select name="green" id="green-select" class="marbles">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>                        
+                    </select>
+                </td>
+			</tr>
+            <tr>
+				<td>
+					<img src="https://drive.google.com/uc?export=download&id=0Bz7YeguouwdxWUo2UWtWQ1AyQjg" height="25"> red: <select name="red" id="red-select" class="marbles">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>                        
+                    </select>
+                </td>
+                <td>
+					<img src="https://drive.google.com/uc?export=download&id=0Bz7YeguouwdxNkxmUkZ6RktFelk" height="25"> orange: <select name="orange" id="orange-select" class="marbles">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>                        
+                    </select>
+                </td>
+			</tr>
+            <tr>
+				<td>
+					<img src="https://drive.google.com/uc?export=download&id=0Bz7YeguouwdxRkRFd1lKMzM5Vk0" height="25"> yellow: <select name="yellow" id="yellow-select" class="marbles">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>                        
+                    </select>
+                </td>
+                <td>
+					<img src="https://drive.google.com/uc?export=download&id=0Bz7YeguouwdxcHlkbk1LU0JZeUU" height="25"> purple: <select name="purple" id="purple-select" class="marbles">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>                        
+                    </select>
+                </td>
+			</tr>
+		</table>
+        </div>
+       <br>
+        <input type="button" value="Show/Hide Setup" id="show-hide" class="btn btn-main">
+    <br>
+           <br>
+               <input type="button" value="Select One at Random" id="randomMarble" class="btn btn-main">
+                   Run multiple times: <input type="text" name="numTimes" id="numTimes" size="10" maxlength="10">
+<input type="button" value="Run" id="run" class="btn btn-main">
+<input type="button" value="Add To" id="addTo" class="btn btn-main">
+                   <br>
+                       <br>
+                           <br>
+		<div id="generatedOutput"></div>
+  </body>
+</html>
+<?!= include('CSS'); ?>
+<?!= include('Javascript'); ?> 
