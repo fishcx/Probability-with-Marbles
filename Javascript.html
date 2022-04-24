@@ -2,8 +2,11 @@
 	$(document).ready(function() {
      
 	 var marbles = [];
+   var colors = [["Blue", "#5cabff"], ["Green", "#22B14C"], ["Red", "#ED1C24"], 
+                 ["Orange", "#FF7F27"], ["Yellow", "#FFF200"], ["Purple", "#A349A4"] ];
+  var colorToIndex = {blue:0, green:1, red:2, orange: 3, yellow: 4, purple: 5};
 	 var marCount = {blue:0, red:0, yellow:0, green:0, orange:0, purple:0};
-     var color = {blue:'0Bz7YeguouwdxNDVKQ3MyS0V1V1U', red:'0Bz7YeguouwdxWUo2UWtWQ1AyQjg', yellow:'0Bz7YeguouwdxRkRFd1lKMzM5Vk0', green:'0Bz7YeguouwdxeTFKZnl0MDFTYTg', orange:'0Bz7YeguouwdxNkxmUkZ6RktFelk', purple:'0Bz7YeguouwdxcHlkbk1LU0JZeUU'};
+    // var color = {blue:'0Bz7YeguouwdxNDVKQ3MyS0V1V1U', red:'0Bz7YeguouwdxWUo2UWtWQ1AyQjg', yellow:'0Bz7YeguouwdxRkRFd1lKMzM5Vk0', green:'0Bz7YeguouwdxeTFKZnl0MDFTYTg', orange:'0Bz7YeguouwdxNkxmUkZ6RktFelk', purple:'0Bz7YeguouwdxcHlkbk1LU0JZeUU'};
     $('#show-hide').click(function(){
     $('#setup').toggle();
   });
@@ -12,7 +15,15 @@
 	var tempC = selectRandom();
     
     if(tempC){
-          $("#generatedOutput").html(timeStamp()+" Color Selected: <img src='https://drive.google.com/uc?export=download&id="+color[tempC]+"' height='25'> "+tempC);
+      var output = timeStamp();
+      var j = colorToIndex[tempC];
+ 
+      output += '<table><tr><td><b>Color Selected: </b></td><td><figure class="circle" style="background: radial-gradient(circle at 10px 10px, ';
+      output += colors[j][1]+', #000);"></td><td>'+colors[j][0]+'</td>';
+      output += '</tr></table>';
+
+      $("#generatedOutput").html(output);
+      
       }
       else{
           $("#generatedOutput").html("Please select at least one marble color.");
@@ -41,11 +52,10 @@
             switch(tempC) {
                     case "blue": ++b; break;
                     case "red": ++r; break;
-					case "yellow": ++y; break;
-					case "green": ++g; break;
-					case "orange": ++o; break;
-					case "purple": ++p; break;
-      
+					          case "yellow": ++y; break;
+				          	case "green": ++g; break;
+				          	case "orange": ++o; break;
+				          	case "purple": ++p; break;
                 }
             }
 			// Update the count
@@ -58,14 +68,24 @@
 			
             if($('#numTimes').val()>0){
 				var total = b+r+y+g+o+p;
-				var output = "<b>Results [Total = "+total+"]:</b> ";
-				if(b > 0){ output += "<img src='https://drive.google.com/uc?export=download&id="+color['blue']+"' height='25'> Blue: "+b+ " ("+getPercent(b,total)+"%)"; }
-				if(r > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['red']+"' height='25'> Red: "+r+ " ("+getPercent(r,total)+"%)"; }
-				if(y > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['yellow']+"' height='25'> Yellow: "+y+ " ("+getPercent(y,total)+"%)"; }
-				if(g > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['green']+"' height='25'> Green: "+g+ " ("+getPercent(g,total)+"%)"; }
-				if(o > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['orange']+"' height='25'> Orange: "+o+ " ("+getPercent(o,total)+"%)"; }
-				if(p > 0){ output += " <img src='https://drive.google.com/uc?export=download&id="+color['purple']+"' height='25'> Purple: "+p+ " ("+getPercent(p,total)+"%)"; }
-                $("#generatedOutput").html(output);
+				var output = "<b>Results [Total = "+total+"]:</b> <table>";
+
+        for(var i = 0; i < colors.length; i++){
+
+          var numOfThatColor = marCount[colors[i][0].toLowerCase()];
+          
+          if(numOfThatColor > 0){
+
+            output += '<tr>';
+            output += '<td><figure class="circle" style="background: radial-gradient(circle at 10px 10px, '+colors[i][1]+', #000);"></td>';
+            output += "<td>"+colors[i][0]+":</td><td>"+numOfThatColor+ " ("+getPercent(numOfThatColor,total)+"%)</td>";
+            output += '</tr>';
+          }
+          
+        }
+        output += "</table>";
+        $("#generatedOutput").html(output);
+
       }
       else{
           $("#generatedOutput").html("Please input a value greater than 0.");
