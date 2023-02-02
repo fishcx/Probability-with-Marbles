@@ -1,6 +1,16 @@
 <script>
 	$(document).ready(function() {
      
+$(document).keypress(function (e) {
+          var key = e.which;
+          if(key == 13)  // the enter key code
+           {
+             $('#run').click();
+             return false;  
+           }
+       }); 
+       
+
 	 var marbles = [];
    var colors = [["Blue", "#5cabff"], ["Green", "#22B14C"], ["Red", "#ED1C24"], 
                  ["Orange", "#FF7F27"], ["Yellow", "#FFF200"], ["Purple", "#A349A4"] ];
